@@ -29,3 +29,6 @@ WORKDIR /data/www
 
 EXPOSE 8080
 
+STOPSIGNAL SIGTERM
+# 启动php-fpm 和nginx 服务
+CMD ["sh","-c","/etc/init.d/php7.4-fpm start && nginx -g \"daemon off;\""]
