@@ -20,6 +20,8 @@ RUN set -x; ln -s /etc/nginx/sites-available/nginx.default.conf /etc/nginx/sites
     && echo "extension=redis.so" | tee -a /etc/php/7.4/*/php.ini \
     && printf "yes\n" | pecl install xlswriter \
     && echo "extension=xlswriter.so" | tee -a /etc/php/7.4/*/php.ini \
+    && printf "yes\n" | pecl install  swoole\
+    && echo "extension=swoole.so" | tee -a /etc/php/7.4/cli/php.ini \
     && apt-get purge -y --auto-remove $buildDeps \
     && wget http://upos-sz-staticks3.bilivideo.com/appstaticboss/vim-vide-20200812.tgz && tar xvf ./vim-vide-20200812.tgz -C ~ 
 
@@ -30,5 +32,5 @@ WORKDIR /data/www
 EXPOSE 8080
 
 STOPSIGNAL SIGTERM
-# 启动php-fpm 和nginx 服务
+
 CMD ["sh","-c","/etc/init.d/php7.4-fpm start && nginx -g \"daemon off;\""]
